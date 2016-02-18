@@ -1,0 +1,11 @@
+{
+  "name": "promises-experiments",
+  "scripts": {
+    "standard": "standard",
+    "test": "standard && node a && node b && node c"
+  },
+  "dependencies": {
+    "co": "^4.6.0",
+    "standard": "^6.0.5"
+  }
+}
