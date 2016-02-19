@@ -2,7 +2,8 @@
   "name": "promises-experiments",
   "scripts": {
     "standard": "standard",
-    "test": "standard ; node a ; node b ; node c ; node d ; node e"
+    "test": "standard ; node a ; node b ; node c ; node d ; node e",
+    "time": "time node timing/cb ; time node timing/cbgen"
   },
   "dependencies": {
     "co": "^4.6.0",
