@@ -2,7 +2,7 @@
   "name": "promises-experiments",
   "scripts": {
     "standard": "standard",
-    "test": "standard && node a && node b && node c"
+    "test": "standard ; node a ; node b ; node c ; node d ; node e"
   },
   "dependencies": {
     "co": "^4.6.0",

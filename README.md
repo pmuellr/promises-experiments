@@ -59,11 +59,16 @@ which should return the first `len` bytes of the specified file, as a Buffer.
 This function is then called to read the first 12 bytes of the program itself,
 which should be the string `'use strict'`.
 
-In addition, if you set the environment variable `BOOM` to anything, a runtime
-error will be caused, by calling a function which doesn't exist, after the
-file contents have been read.  Presumably, in midst of the "business logic".
+In addition, if you set the environment variable `BOOM` to simulate errors.
+Setting to '1' will cause the `fs.read()` call to simulate an error result
+instead of a valid result.  Setting to '2' will call a function that doesn't
+exist, and so simulate a "runtime" error (eg, typo) in your "business logic".
 
-You can run all the experiments via `npm test` and `BOOM=1 npm test`.
+You can run all the experiments via:
+
+    npm test
+    BOOM=1 npm test
+    BOOM=2 npm test`
 
 
 [experiment a](a.js)
@@ -84,3 +89,21 @@ but still returns a promise at the end.
 
 Use `co` to wrap a function to do the business logic with `yield`'d promises,
 but function uses a callback at the end instead of a promise.
+
+
+[experiment d](d.js)
+--------------------------------------------------------------------------------
+
+Well wait.  If we can use `co` with promises and generators, and we dummied up
+promises for `fs` with it's existing callbacks, why can't we get generators and
+callbacks to work nicely.  We can!  Kinda icky, in the current incantation, as
+I return the callback arguments as an array for the yield statements.  Ideally
+you'd like callbacks be passed a single argument - an object - which you could
+unpack with destructuring.  Some day!
+
+
+[experiment e](e.js)
+--------------------------------------------------------------------------------
+
+This experiment is the same as d, but we use an `fs` module which **does**
+return a "structured" value in it's callbacks, instead of a list of arguments.

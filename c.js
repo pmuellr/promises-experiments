@@ -23,9 +23,11 @@ function readFile (fileName, len, cb) {
     const fd = yield fsp.open(fileName, 'r')
 
     // read the first bytes into buffer
-    const buff2 = yield fsp.read(fd, buff)
+    const buff2 = yield (process.env.BOOM === '1')
+      ? Promise.reject(new Error('BOOM 1'))
+      : fsp.read(fd, buff)
 
-    if (process.env.BOOM) buff.boom()
+    if (process.env.BOOM === '2') buff.boom()
 
     // close the file after reading it
     yield fsp.close(fd)

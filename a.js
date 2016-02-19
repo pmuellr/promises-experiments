@@ -19,9 +19,11 @@ function readFile (fileName, len) {
   // with the open file ...
   return Δfd.then(fd => {
     // read the first bytes into buffer
-    const Δread = fsp.read(fd, buff)
+    const Δread = (process.env.BOOM === '1')
+      ? Promise.reject(new Error('BOOM 1'))
+      : fsp.read(fd, buff)
 
-    if (process.env.BOOM) buff.boom()
+    if (process.env.BOOM === '2') buff.boom()
 
     // close the file after reading it
     const Δclosed = Δread.then(_ => fsp.close(fd))
