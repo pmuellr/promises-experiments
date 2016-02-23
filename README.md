@@ -107,3 +107,15 @@ unpack with destructuring.  Some day!
 
 This experiment is the same as d, but we use an `fs` module which **does**
 return a "structured" value in it's callbacks, instead of a list of arguments.
+
+
+[experiment f](f.js)
+--------------------------------------------------------------------------------
+
+This experiment is turns async callbacks in node into sync ones.  As usual,
+the meat of the function is wrapped in a generator.  Instead of just providing
+a function as a callback to your node function, provide the result of calling
+`sync()` (provided to the generator) instead.  This function will then be
+called synchronously when the node function callback is run.  Your callback
+will basically consist of setting local vars declared in a higher scope
+equal to the callback arguments.

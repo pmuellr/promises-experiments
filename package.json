@@ -2,11 +2,13 @@
   "name": "promises-experiments",
   "scripts": {
     "standard": "standard",
-    "test": "standard ; node a ; node b ; node c ; node d ; node e",
-    "time": "time node timing/cb ; time node timing/cbgen"
+    "test": "standard ; node a ; node b ; node c ; node d ; node e ; node f",
+    "time": "time node timing/cb ; time node timing/cbgen ; time node timing/cbgen-structured",
+    "watch": "nodemon --exec 'npm test' --ext js,json"
   },
   "dependencies": {
-    "co": "^4.6.0",
-    "standard": "^6.0.5"
+    "co": "~4.6.0",
+    "nodemon": "~1.9.0",
+    "standard": "~6.0.5"
   }
 }
