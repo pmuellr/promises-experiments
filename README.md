@@ -119,3 +119,13 @@ a function as a callback to your node function, provide the result of calling
 called synchronously when the node function callback is run.  Your callback
 will basically consist of setting local vars declared in a higher scope
 equal to the callback arguments.
+
+
+[experiment g](g.js)
+--------------------------------------------------------------------------------
+
+In this experiment, you replace node.js callback parameters with an invocation
+of the `sync()` function passed to the generator.  The `sync()` function takes
+an object as the first parameter, and a list of callback parameter names in
+a space-separated string as the second parameter.  These names will be used as
+property names of the passed in object, to set the callback parameter values.
