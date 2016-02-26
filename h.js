@@ -3,26 +3,15 @@
 
 const fs = require('fs')
 
-let countdown = 50000
-
-readFile(__filename, 12, cbReadFile)
-
-// ------------------------------------
-function cbReadFile ($) {
-  if ($.err) throw $.err
-  if ($.buffer.toString() !== '\'use strict\'') throw new Error('oops')
-
-  countdown--
-  if (countdown <= 0) return
-
-  readFile(__filename, 12, cbReadFile)
-}
-
-// ------------------------------------
+// read 12 bytes of this file, print them, or print error if that happens
+readFile(__filename, 12, function ($) {
+  if ($.err) return console.log(__filename, 'error:', $.err.stack)
+  console.log(__filename, 'read:', $.buffer.toString())
+})
 
 // call cb on a Buffer len bytes long of first bytes of fileName
 function readFile (fileName, len, cb) {
-  yieldCallback(ΔreadFile, cb)
+  cbsync(ΔreadFile, cb)
 
   // return, as a generator, a Buffer len bytes long of first bytes of fileName
   function * ΔreadFile (cbProps) {
@@ -56,23 +45,18 @@ function readFile (fileName, len, cb) {
   }
 }
 
-function yieldCallback (gen, cb) {
+function cbsync (gen, cb) {
   const iter = gen(cbProps)
   iter.next()
 
   function cbProps (vars) {
     vars = vars.trim().split(/\s+/)
-    const varsLen = vars.length
 
-    return function cbParmSetter (a, b, c, d, e) {
+    return function cbParmSetter () {
       const object = {}
-
-      if (varsLen >= 1) { object[vars[0]] = a }
-      if (varsLen >= 2) { object[vars[1]] = b }
-      if (varsLen >= 3) { object[vars[2]] = c }
-      if (varsLen >= 4) { object[vars[3]] = d }
-      if (varsLen >= 5) { object[vars[4]] = e }
-
+      for (let i = 0; i < vars.length; i++) {
+        object[vars[i]] = arguments[i]
+      }
       const next = iter.next(object)
       if (next.done) cb(next.value)
     }

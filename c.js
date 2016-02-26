@@ -25,7 +25,7 @@ function readFile (fileName, len, cb) {
     // read the first bytes into buffer
     const buff2 = yield (process.env.BOOM === '1')
       ? Promise.reject(new Error('BOOM 1'))
-      : fsp.read(fd, buff)
+      : fsp.read(fd, buff, 0, len, 0)
 
     if (process.env.BOOM === '2') buff.boom()
 

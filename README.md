@@ -125,7 +125,22 @@ equal to the callback arguments.
 --------------------------------------------------------------------------------
 
 In this experiment, you replace node.js callback parameters with an invocation
-of the `sync()` function passed to the generator.  The `sync()` function takes
-an object as the first parameter, and a list of callback parameter names in
-a space-separated string as the second parameter.  These names will be used as
-property names of the passed in object, to set the callback parameter values.
+of the `cbProps()` function passed to the generator.  The `cbProps()` function
+takes an object as the first parameter, and a list of callback parameter names
+in a space-separated string as the second parameter.  These names will be used
+as property names of the passed in object, to set the callback parameter values.
+
+[experiment h](h.js)
+--------------------------------------------------------------------------------
+
+This experiment is similar to g, only yield returns an object with the
+specified callback parameter properties, instead of you passing an object
+into the callback wrapper.
+
+[experiment i](i.js)
+--------------------------------------------------------------------------------
+
+This experiment is similar to h, only instead of passing in a string of
+space-separated callback parameter names, you pass in a structure which maps
+to the callback parameters.  Name them whatever you like, the properties are
+filled in from parameters, left-to-right.
